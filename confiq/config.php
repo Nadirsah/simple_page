@@ -7,10 +7,10 @@ $database = "exercise";
 try {
 
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-} catch(PDOException $e) {
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
 
-    echo "Connection Failed" .$e->getMessage();
+    echo "Connection Failed" . $e->getMessage();
 }
 
 
@@ -26,4 +26,14 @@ $statement_kategoriya_detail = $conn->prepare($query_kategoriya_detail);
 $statement_kategoriya_detail->execute();
 $statement_kategoriya_detail->setFetchMode(PDO::FETCH_OBJ);
 $result_kategoriya_detail = $statement_kategoriya_detail->fetchAll();
-?>
+
+
+if (isset($_GET['id'])) {
+
+    $kategory_id = $_GET['id'];
+    $query = "SELECT *FROM kategoriyalara WHERE id=:kategory_id LIMIT 1";
+    $statement = $conn->prepare($query);
+    $data = [':kategory_id' => $kategory_id];
+    $statement->execute($data);
+    $result = $statement->fetch(PDO::FETCH_OBJ);
+}

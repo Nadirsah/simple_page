@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <?php include('layouts/header.php') ?>
 <div class="container-fluid ">
     <?php include('layouts/navbar.php') ?>
